@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated QR Code Generator</title>
+    <link rel="stylesheet" href="qr.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> Animated QR Generator</h1>
+            <p>Create beautiful animated QR codes with custom patterns</p>
+        </div>
+        
+        <div class="content">
+            <div class="controls-panel">
+                <div class="form-group">
+                    <label for="textInput">Text or URL to Encode</label>
+                    <textarea id="textInput" placeholder="Enter your text, URL, or any data to encode...">https://github.com</textarea>
+                    <div class="char-counter">
+                        Characters: <span id="charCount">0</span>
+                        <span id="charStatus"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="animationMode">Animation Pattern</label>
+                    <select id="animationMode">
+                        <option value="sequential">Sequential (Row by Row)</option>
+                        <option value="spiral">Spiral (Inside Out)</option>
+                        <option value="random">Random Pattern</option>
+                        <option value="wave">Wave Effect</option>
+                        <option value="corners">From Corners</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="errorCorrection">Error Correction Level</label>
+                    <select id="errorCorrection">
+                        <option value="L">Low (~7%)</option>
+                        <option value="M" selected>Medium (~15%)</option>
+                        <option value="Q">Quartile (~25%)</option>
+                        <option value="H">High (~30%)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="speed">Animation Speed</label>
+                    <div class="slider-group">
+                        <input type="range" id="speed" class="slider" min="1" max="100" value="20">
+                        <span class="speed-value" id="speedValue">20 ms</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="moduleSize">Module Size</label>
+                    <select id="moduleSize">
+                        <option value="8">Small (8px)</option>
+                        <option value="10" selected>Medium (10px)</option>
+                        <option value="12">Large (12px)</option>
+                        <option value="15">Extra Large (15px)</option>
+                    </select>
+                </div>
+
+                <div class="buttons">
+                    <button id="generateBtn" class="btn btn-primary">🚀 Generate</button>
+                    <button id="pauseBtn" class="btn btn-secondary" disabled>⏸️ Pause</button>
+                    <button id="resetBtn" class="btn btn-secondary" disabled>🔄 Reset</button>
+                    <button id="saveBtn" class="btn btn-secondary" disabled>💾 Save PNG</button>
+                </div>
+            </div>
+
+            <div class="canvas-panel">
+                <div class="canvas-container">
+                    <canvas id="qrCanvas"></canvas>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                
+                <div class="status" id="status">Ready to generate QR code</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="qr.js"></script>
+</body>
+</html>
