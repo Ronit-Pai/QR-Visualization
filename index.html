@@ -18,7 +18,7 @@
             <div class="controls-panel">
                 <div class="form-group">
                     <label for="textInput">Text or URL to Encode</label>
-                    <textarea id="textInput" placeholder="Enter your text, URL, or any data to encode...">https://github.com</textarea>
+                    <textarea id="textInput" placeholder="Enter your text, URL, or any data to encode..."></textarea>
                     <div class="char-counter">
                         Characters: <span id="charCount">0</span>
                         <span id="charStatus"></span>
@@ -64,11 +64,26 @@
                     </select>
                 </div>
 
+                
+                <div class="form-group">
+                    <label>Foreground Color</label>
+                    <input type="color" id="fgColor" value="#000000">
+                </div>
+
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <input type="color" id="bgColor" value="#FFFFFF">
+                </div>
+
+                <div class="form-group">
+                    <label><input type="checkbox" id="roundedModules"> Rounded Modules</label>
+                </div>
+
                 <div class="buttons">
-                    <button id="generateBtn" class="btn btn-primary">🚀 Generate</button>
-                    <button id="pauseBtn" class="btn btn-secondary" disabled>⏸️ Pause</button>
-                    <button id="resetBtn" class="btn btn-secondary" disabled>🔄 Reset</button>
-                    <button id="saveBtn" class="btn btn-secondary" disabled>💾 Save PNG</button>
+                    <button id="generateBtn" class="btn btn-primary"> ▶Generate</button>
+                    <button id="pauseBtn" class="btn btn-secondary" disabled>❚❚ Pause</button>
+                    <button id="resetBtn" class="btn btn-secondary" disabled>↻ Reset</button>
+                    <button id="saveBtn" class="btn btn-secondary" disabled>💾Save PNG</button>
                 </div>
             </div>
 

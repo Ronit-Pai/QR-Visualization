@@ -32,6 +32,11 @@ class AnimatedQRGenerator {
         this.status = document.getElementById('status');
         this.charCount = document.getElementById('charCount');
         this.charStatus = document.getElementById('charStatus');
+
+        // 🎨 New elements for customization
+        this.fgColor = document.getElementById('fgColor');
+        this.bgColor = document.getElementById('bgColor');
+        this.roundedModules = document.getElementById('roundedModules');
     }
 
     bindEvents() {
@@ -73,7 +78,6 @@ class AnimatedQRGenerator {
         }
 
         try {
-            
             const typeNumber = 0; 
             const errorCorrectionLevel = this.errorCorrection.value;
             
@@ -81,16 +85,9 @@ class AnimatedQRGenerator {
             this.animationState.qrCode.addData(text);
             this.animationState.qrCode.make();
 
-            
             this.setupCanvas();
-            
-            
             this.generateModuleData();
-            
-            
             this.generateAnimationPattern();
-            
-            
             this.startAnimation();
 
         } catch (error) {
@@ -109,8 +106,8 @@ class AnimatedQRGenerator {
         this.canvas.width = totalSize;
         this.canvas.height = totalSize;
         
-        
-        this.ctx.fillStyle = '#FFFFFF';
+        // 🎨 Use selected background color
+        this.ctx.fillStyle = this.bgColor.value;
         this.ctx.fillRect(0, 0, totalSize, totalSize);
         
         this.canvasSettings = {
@@ -125,7 +122,6 @@ class AnimatedQRGenerator {
     generateModuleData() {
         const { moduleCount } = this.canvasSettings;
         const modules = [];
-        
         
         for (let row = 0; row < moduleCount; row++) {
             for (let col = 0; col < moduleCount; col++) {
@@ -154,23 +150,18 @@ class AnimatedQRGenerator {
             case 'sequential':
                 pattern = modules.sort((a, b) => a.row - b.row || a.col - b.col);
                 break;
-            
             case 'spiral':
                 pattern = this.generateSpiralPattern(modules);
                 break;
-            
             case 'random':
                 pattern = this.shuffleArray([...modules]);
                 break;
-            
             case 'wave':
                 pattern = this.generateWavePattern(modules);
                 break;
-            
             case 'corners':
                 pattern = this.generateCornerPattern(modules);
                 break;
-            
             default:
                 pattern = modules;
         }
@@ -203,10 +194,10 @@ class AnimatedQRGenerator {
         
         return modules.sort((a, b) => {
             const cornerDistA = Math.min(
-                a.row + a.col, // top-left
-                (moduleCount - 1 - a.row) + a.col, // bottom-left
-                a.row + (moduleCount - 1 - a.col), // top-right
-                (moduleCount - 1 - a.row) + (moduleCount - 1 - a.col) // bottom-right
+                a.row + a.col, 
+                (moduleCount - 1 - a.row) + a.col, 
+                a.row + (moduleCount - 1 - a.col), 
+                (moduleCount - 1 - a.row) + (moduleCount - 1 - a.col)
             );
             const cornerDistB = Math.min(
                 b.row + b.col,
@@ -242,15 +233,30 @@ class AnimatedQRGenerator {
             return;
         }
 
-        
         const module = this.animationState.pattern[this.animationState.currentStep];
-        this.ctx.fillStyle = '#000000';
-        this.ctx.fillRect(
-            module.x,
-            module.y,
-            this.canvasSettings.moduleSize,
-            this.canvasSettings.moduleSize
-        );
+        this.ctx.fillStyle = this.fgColor.value; // 🎨 Foreground color
+
+        if (this.roundedModules.checked) {
+            // 🎨 Rounded modules
+            const radius = this.canvasSettings.moduleSize / 2;
+            this.ctx.beginPath();
+            this.ctx.arc(
+                module.x + radius,
+                module.y + radius,
+                radius,
+                0,
+                Math.PI * 2
+            );
+            this.ctx.fill();
+        } else {
+            // Default square modules
+            this.ctx.fillRect(
+                module.x,
+                module.y,
+                this.canvasSettings.moduleSize,
+                this.canvasSettings.moduleSize
+            );
+        }
 
         this.animationState.currentStep++;
         this.updateProgress();
@@ -299,7 +305,7 @@ class AnimatedQRGenerator {
 
     clearCanvas() {
         if (this.canvasSettings) {
-            this.ctx.fillStyle = '#FFFFFF';
+            this.ctx.fillStyle = this.bgColor.value; // 🎨 background color
             this.ctx.fillRect(0, 0, this.canvasSettings.totalSize, this.canvasSettings.totalSize);
         }
     }
@@ -336,9 +342,6 @@ class AnimatedQRGenerator {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     new AnimatedQRGenerator();
 });
-
-
