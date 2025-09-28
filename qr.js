@@ -37,6 +37,9 @@ class AnimatedQRGenerator {
         this.fgColor = document.getElementById('fgColor');
         this.bgColor = document.getElementById('bgColor');
         this.roundedModules = document.getElementById('roundedModules');
+        // New: working/learn-more link
+        this.workingLink = document.getElementById('workingLink');
+        this.seeWorkingBtn = document.getElementById('seeWorkingBtn');
     }
 
     bindEvents() {
@@ -46,6 +49,9 @@ class AnimatedQRGenerator {
         this.pauseBtn.addEventListener('click', () => this.togglePause());
         this.resetBtn.addEventListener('click', () => this.reset());
         this.saveBtn.addEventListener('click', () => this.saveImage());
+        if (this.seeWorkingBtn) {
+            this.seeWorkingBtn.addEventListener('click', () => this.openExplainer());
+        }
     }
 
     updateCharCounter() {
@@ -222,6 +228,7 @@ class AnimatedQRGenerator {
         this.animationState.isPaused = false;
         this.animationState.currentStep = 0;
         this.updateControls();
+        if (this.workingLink) this.workingLink.style.display = 'none';
         this.animate();
     }
 
@@ -285,6 +292,7 @@ class AnimatedQRGenerator {
         this.updateProgress();
         this.updateControls();
         this.status.textContent = 'Ready to generate QR code';
+        if (this.workingLink) this.workingLink.style.display = 'none';
     }
 
     stopAnimation() {
@@ -301,6 +309,7 @@ class AnimatedQRGenerator {
         this.updateControls();
         const qrInfo = `${this.canvasSettings.moduleCount}×${this.canvasSettings.moduleCount}`;
         this.status.textContent = `Animation complete! QR code (${qrInfo}) with ${this.animationState.totalSteps} dark modules is ready to scan`;
+        if (this.workingLink) this.workingLink.style.display = 'block';
     }
 
     clearCanvas() {
@@ -338,6 +347,14 @@ class AnimatedQRGenerator {
             this.status.textContent = 'QR code saved successfully!';
         } catch (error) {
             alert('Error saving image: ' + error.message);
+        }
+    }
+
+    openExplainer() {
+        try {
+            window.location.href = 'how-qr-works.html';
+        } catch (e) {
+            window.open('how-qr-works.html', '_blank');
         }
     }
 }
