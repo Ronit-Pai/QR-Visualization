@@ -27,6 +27,7 @@ body {
         inset 0 1px 0 rgba(255,255,255,0.1);
     overflow: hidden;
     border: 2px solid #4A4A4A;
+    position: relative; 
 }
 
 .header {
@@ -225,6 +226,9 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-decoration: none; /* support anchor buttons */
+    display: inline-block; /* ensure anchors render like buttons */
+    text-align: center;
 }
 
 .btn::before {
@@ -589,4 +593,67 @@ input[type="checkbox"] {
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-8px); }
+}
+
+/* ===== Additions for explainer page (how-qr-works) ===== */
+
+/* Section headings used in explainer */
+h2 {
+    color: #A8DADC;
+    margin: 0 0 0.75rem 0;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+}
+
+/* Improve readability of paragraphs and lists without overriding explicit inline colors */
+section p {
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    margin-left: 1.25rem;
+    padding-left: 0.75rem;
+    line-height: 1.7;
+}
+
+li + li { margin-top: 0.25rem; }
+
+/* Inline code styling for examples */
+code {
+    background: #3A3A3A;
+    color: #E4E4E4;
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid #4A4A4A;
+}
+
+/* Links within content */
+a {
+    color: #A8DADC;
+}
+a:hover {
+    color: #B39CD0;
+}
+
+/* Intro section media */
+.intro img {
+    margin-top: 0.75rem;
+    border: 2px solid #4A4A4A;
+    border-radius: 10px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+}
+
+/* Make SVG text match app typography */
+svg text {
+    font-family: 'Pixelify Sans', monospace;
+}
+
+/* Reduce extra spacing for small diagram containers if set smaller inline */
+.canvas-container svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Single-button row support in explainer footer */
+.buttons a.btn {
+    width: 100%;
 }
